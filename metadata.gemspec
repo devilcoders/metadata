@@ -1,4 +1,4 @@
-require 'lib/metadata.rb'
+require 'lib/metadata'
 require 'rake'
 
 version = Metadata::VERSION
