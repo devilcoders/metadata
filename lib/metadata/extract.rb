@@ -4,7 +4,7 @@ require 'time'
 require 'date'
 require 'base64'
 
-require 'metadata/mime_info'
+require 'lib/metadata/mime_info'
 
 
 class Pathname
