@@ -1,4 +1,4 @@
-require 'lib/metadata/title_guesser'
+require '#{File.dirname(__FILE__)}/lib/metadata/title_guesser'
 
 module Metadata
 module PublicationGuesser

@@ -237,22 +237,35 @@ extend self
     mt = mts.shift
     rv = nil
     new_methods = public_methods(false)
+    
+    #verbose message
+    # TODO: send in json to browser
     STDERR.puts "Processing #{filename}", " Metadata extraction" if verbose
+    
     while mt.is_a?(Mimetype) and mt != Mimetype
+      
+      #verbose message
+      # TODO: send in json to browser
       STDERR.puts "  Trying #{mt}" if verbose
       mn = mt.to_s.gsub(/[^a-z0-9]/i,"_")
       if new_methods.include?( mn )
         begin
           rv = __send__( mn, filename, charset )
+          #verbose message
+          # TODO: send in json to browser
           STDERR.puts "  OK" if verbose
           break
         rescue => e
+          #verbose message
+          # TODO: send in json to browser
           STDERR.puts(e, e.message, e.backtrace) if verbose
         end
       end
       mt = mts.shift
     end
     unless rv
+      #verbose message
+      # TODO: send in json to browser
       STDERR.puts "  Falling back to extract" if verbose
       rv = extract_extract_info(filename)
     end
@@ -338,22 +351,41 @@ extend self
     mts = mimetype.ancestors
     mt = mts.shift
     new_methods = public_methods(false)
+    
+    #verbose message
+    # TODO: send in json to browser
     STDERR.puts " Text extraction" if verbose
+    
     while mt.is_a?(Mimetype) and mt != Mimetype
+      
+      #verbose message
+      # TODO: send in json to browser
       STDERR.puts "  Trying #{mt}" if verbose
+      
       mn = mt.to_s.gsub(/[^a-z0-9]/i,"_") + "__gettext"
       if new_methods.include?( mn )
         begin
           rv = __send__( mn, filename, charset, layout )
+          
+          #verbose message
+          # TODO: send in json to browser
           STDERR.puts "  OK" if verbose
+          
           return rv
         rescue => e
+          
+          #verbose message
+          # TODO: send in json to browser
           STDERR.puts(e, e.message, e.backtrace) unless quiet
         end
       end
       mt = mts.shift
     end
+    
+    #verbose message
+    # TODO: send in json to browser
     STDERR.puts "  Text extraction failed" if verbose
+    
     nil
   end
 
@@ -365,7 +397,11 @@ extend self
       require libname
     rescue LoadError
       unless retried
+        
+        #verbose message
+        # TODO: send in json to browser 
         STDERR.puts "Requiring rubygems" if verbose
+        
         require 'rubygems'
         retried = true
         retry
@@ -430,7 +466,7 @@ extend self
     guess
   end
 
-
+  #TODO: Generate audio waveform
   def audio_x_flac(fn, charset)
     gem_require 'flacinfo'
     m = nil
@@ -461,7 +497,8 @@ extend self
     ad.delete_if{|k,v| v.nil? }
     md.merge(ad)
   end
-
+  
+  #TODO: Generate audio waveform
   def audio_mp4(fn, charset)
     gem_require 'mp4info'
     m = MP4Info.open(fn)
@@ -486,7 +523,8 @@ extend self
       'Audio.Image' => base64(m.COVR),
     }
   end
-
+  
+  #TODO: Generate audio waveform
   def audio_x_ms_wma(fn, charset)
     gem_require 'wmainfo'
     # hack hack hacky workaround
@@ -511,6 +549,7 @@ extend self
     }
   end
 
+  #TODO: Generate audio waveform
   def audio_x_ape(fn, charset)
     gem_require 'apetag'
     m = ApeTag.new(fn)
@@ -532,6 +571,7 @@ extend self
   alias_method :audio_x_musepack, :audio_x_ape
   alias_method :audio_x_wavepack, :audio_x_ape
 
+  #TODO: Generate audio waveform
   def audio_mpeg(fn, charset)
     gem_require 'mp3info'
     h = audio(fn, charset)
@@ -640,7 +680,8 @@ extend self
       'Doc.Charset' => charset
     }
   end
-
+  
+  #TODO: Generate audio waveform
   def audio(filename, charset)
     id3 = (id3lib_extract(filename, charset) rescue {})
     h = mplayer_extract_info(filename)
@@ -666,6 +707,8 @@ extend self
     info.merge(id3)
   end
 
+  #TODO: Generate audio waveform
+  #TODO: Generate few frames for preview
   def video(filename, charset)
     id3 = (id3lib_extract(filename, charset) rescue {})
     h = mplayer_extract_info(filename)
@@ -723,6 +766,7 @@ extend self
   end
   alias_method('video_x_ms_asf', 'video_x_ms_wmv')
 
+  #TODO: Generate image histogram
   def image(filename, charset)
     begin
       gem_require 'imlib2'

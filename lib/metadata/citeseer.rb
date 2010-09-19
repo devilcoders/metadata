@@ -4,7 +4,7 @@ require 'hpricot'
 require 'yaml'
 require 'open-uri'
 require 'text'
-require 'lib/metadata/bibtex'
+require '#{File.dirname(__FILE__)}/lib/metadata/bibtex'
 
 class String
   def rsplit(*args)

@@ -2,7 +2,7 @@ require 'uri'
 require 'hpricot'
 require 'yaml'
 require 'open-uri'
-require 'lib/metadata/bibtex'
+require '#{File.dirname(__FILE__)}/lib/metadata/bibtex'
 require 'cgi'
 require 'text'
 

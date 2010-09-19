@@ -1,5 +1,5 @@
 was_disabled = GC.disable
-require 'lib/metadata/extract.rb'
+require '#{File.dirname(__FILE__)}/lib/metadata/extract.rb'
 
 module Metadata
   VERSION = '2.0'

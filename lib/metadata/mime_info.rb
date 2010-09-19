@@ -19,7 +19,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 require "singleton"
-require "lib/metadata/mime_info_magic"
+require "#{File.dirname(__FILE__)}/lib/metadata/mime_info_magic"
 
 
 =begin
